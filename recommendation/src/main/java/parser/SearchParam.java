@@ -104,5 +104,16 @@ public class SearchParam {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		String temp="";
+		temp+="Name : "+name+"\n";
+		temp+="Desc : "+description+"\n";
+		temp+="Tags : "+tags+"\n";
+		temp+="Cat : "+categories+"\n";
+		temp+="Plat : "+platforms+"\n";
+		temp+="Pub : "+publishers;
+		return temp;
+	}
 
 }
