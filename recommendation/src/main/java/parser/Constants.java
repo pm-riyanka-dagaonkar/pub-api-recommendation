@@ -14,4 +14,5 @@ public class Constants {
 	public static String DESCRIPTION="description";
 	public static String TAGS="tags";
 	public static String ADDRESS="Address: ";
+	public static int TOP_N=5;
 }

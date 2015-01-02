@@ -15,6 +15,10 @@ import java.util.Map;
 public class ParsingMain {
 	
 	private Map<SearchParam,Integer> searchCountMap = new HashMap<SearchParam, Integer>();
+	private Map<Integer, Integer> platformSearch = new HashMap<Integer, Integer>();
+	private Map<Integer, Integer> publisherSearch = new HashMap<Integer, Integer>();
+	private Map<Integer, Integer> categorySearch = new HashMap<Integer, Integer>();
+	private Map<String, Integer> keyWordsSearch = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
 		ParsingMain mainObj=new ParsingMain();
@@ -39,7 +43,17 @@ public class ParsingMain {
 				parseFile(dir.getAbsolutePath()+File.separator+fileName);
 			}
 		}
-		System.out.println(searchCountMap);
+		//System.out.println(searchCountMap);
+		analyseRawData();
+		
+	}
+	private void analyseRawData()
+	{
+		DataAnalyser.sortSearchQueryMap(searchCountMap);
+		DataAnalyser.sortCriterionMap(categorySearch,Constants.PRODUCT_CATEGORY);
+		DataAnalyser.sortCriterionMap(platformSearch,Constants.PLATFORMS);
+		DataAnalyser.sortCriterionMap(publisherSearch,Constants.PUBLISHER_IDS);
+		DataAnalyser.sortCriterionMap(keyWordsSearch,Constants.TAGS);
 	}
 	private void parseFile(String fileName)
 	{
@@ -83,7 +97,7 @@ public class ParsingMain {
 	    String filterKey;
 	    String filterValue;
 	    String[] pairs = query.split("&");
-	    SearchParam object=new SearchParam();
+	    SearchParam searchParamObject=new SearchParam();
 	    for (String pair : pairs) {
 	        int idx = pair.indexOf("=");
 	        filterKey=URLDecoder.decode(pair.substring(0, idx), "UTF-8");
@@ -91,7 +105,7 @@ public class ParsingMain {
 	       
 	        if(filterKey.equals(Constants.PUBLISHER_IDS))
 	        {
-	        	updateSearchParamWithPublisherId(filterKey, filterValue, object);
+	        	updateSearchParamWithPublisherId(filterKey, filterValue, searchParamObject);
 	        	/*System.out.println("key "+filterKey);
 		        System.out.println("values "+filterValue);*/
 	        }
@@ -99,18 +113,18 @@ public class ParsingMain {
 	        {
 	        	/*System.out.println("key "+filterKey);
 		        System.out.println("values "+filterValue);*/
-		        updateSearchParamWithFilters(filterKey, filterValue, object);
+		        updateSearchParamWithFilters(filterKey, filterValue, searchParamObject);
 	        }
 	        
 	    }
-	    if(searchCountMap.containsKey(object))
+	    if(searchCountMap.containsKey(searchParamObject))
 	    {
-	    	int count=searchCountMap.get(object);
-	    	searchCountMap.put(object, count+1);
+	    	int count=searchCountMap.get(searchParamObject);
+	    	searchCountMap.put(searchParamObject, count+1);
 	    }
 	    else
-	    	searchCountMap.put(object, 1);
-
+	    	searchCountMap.put(searchParamObject, 1);
+	    
 	    
 	}
 	
@@ -124,6 +138,14 @@ public class ParsingMain {
 			searchParamObject.setPublishers(pubs+","+filterValues);
 		else
 			searchParamObject.setPublishers(filterValues);
+		Integer id=Integer.parseInt(filterValues);
+		if(publisherSearch.containsKey(id))
+		{
+			Integer count=publisherSearch.get(id);
+			publisherSearch.put(id, count+1);
+		}
+		else
+			publisherSearch.put(id, 1);
 	}
 	
 	private void updateSearchParamWithFilters(String filterKey, String filterValues,
@@ -153,6 +175,13 @@ public class ParsingMain {
 				{
 					value=getValueFromCriteria(param, Constants.LIKE);
 					searchParamObject.setTags(value);
+					if(keyWordsSearch.containsKey(value))
+					{
+						Integer count=keyWordsSearch.get(value);
+						keyWordsSearch.put(value, count+1);
+					}
+					else
+						keyWordsSearch.put(value, 1);
 				}
 			}
 		}
@@ -168,6 +197,14 @@ public class ParsingMain {
 					searchParamObject.setCategories(temp+","+value);
 				else
 					searchParamObject.setCategories(value);
+				Integer id=Integer.parseInt(value);
+				if(categorySearch.containsKey(id))
+				{
+					Integer count=categorySearch.get(id);
+					categorySearch.put(id, count+1);
+				}
+				else
+					categorySearch.put(id, 1);
 			}
 		}
 		//string like "platFormIds eq 1"
@@ -182,6 +219,14 @@ public class ParsingMain {
 					searchParamObject.setPlatforms(temp+","+value);
 				else
 					searchParamObject.setPlatforms(value);
+				Integer id=Integer.parseInt(value);
+				if(platformSearch.containsKey(id))
+				{
+					Integer count=platformSearch.get(id);
+					platformSearch.put(id, count+1);
+				}
+				else
+					platformSearch.put(id, 1);
 			}
 		}
 	}
@@ -202,5 +247,4 @@ public class ParsingMain {
 		}
 		return value;
 	}
-
 }
