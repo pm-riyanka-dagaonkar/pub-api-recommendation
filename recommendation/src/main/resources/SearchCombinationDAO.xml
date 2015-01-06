@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='dao.SearchCombinationDAO'>
+<resultMap id="Search_combination_mapper"
+		type="parser.SearchParamCount">
+		<id property="searchParam.id" column="id" />
+		<id property="searchParam.creation_time" column="creation_time" />
+		<id property="count" column="count" />
+		<id property="searchParam.tags" column="keywords" />
+		<id property="searchParam.categories" column="categories" />
+		<id property="searchParam.publishers" column="publishers" />
+		<id property="searchParam.platforms" column="platforms" />
+		<id property="searchParam.modification_time" column="modification_time" />
+		
+</resultMap>
+
+
+  <select id='getSearchParamCountById' parameterType='Long' 
+  resultMap='Search_combination_mapper'>
+     SELECT 
+      creation_time,count,keywords,categories,publishers,platforms,modification_time
+     FROM Recommendation.search_combination
+     WHERE 
+     	id = #{SearchParamCountId}
+  </select>
+  
+  <insert id='insertSearchParamCount' parameterType='parser.SearchParamCount' 
+  useGeneratedKeys='true' keyProperty='id'>
+   INSERT INTO Recommendation.search_combination
+   (creation_time,count,keywords,categories,publishers,platforms,modification_time)
+   
+   VALUES(CURRENT_TIMESTAMP, #{count}, #{searchParam.tags}, #{searchParam.categories},
+   #{searchParam.publishers},#{searchParam.platforms},CURRENT_TIMESTAMP)
+  </insert>
+  
+  <select id='getAllSearchParamCounts' resultMap='Search_combination_mapper'>
+   SELECT * FROM Recommendation.search_combination
+  </select>
+  
+  </mapper>

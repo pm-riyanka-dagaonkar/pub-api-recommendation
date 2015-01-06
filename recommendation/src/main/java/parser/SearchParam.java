@@ -1,13 +1,36 @@
 package parser;
 
+import java.sql.Timestamp;
+
 public class SearchParam {
-	String categories;
-	String publishers;
-	String platforms;
-	String name;
-	String description;
-	String tags;
+	private String categories;
+	private String publishers;
+	private String platforms;
+	private String name;
+	private String description;
+	private String tags;
+	private Long id;
+	private Timestamp creation_time;
+	private Timestamp modification_time;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Timestamp getCreation_time() {
+		return creation_time;
+	}
+	public void setCreation_time(Timestamp creation_time) {
+		this.creation_time = creation_time;
+	}
+	public Timestamp getModification_time() {
+		return modification_time;
+	}
+	public void setModification_time(Timestamp modification_time) {
+		this.modification_time = modification_time;
+	}
 	public String getCategories() {
 		return categories;
 	}
