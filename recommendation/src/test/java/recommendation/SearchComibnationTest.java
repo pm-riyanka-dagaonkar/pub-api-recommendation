@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import parser.SearchParam;
@@ -29,6 +30,7 @@ public class SearchComibnationTest
 		searchCombinationService=null;
 	}*/
 	
+	@Ignore
 	@Test
 	public void testGetAllSearches() 
 	{
