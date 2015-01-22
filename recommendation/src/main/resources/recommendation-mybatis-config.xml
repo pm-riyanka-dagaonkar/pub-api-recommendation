@@ -19,6 +19,6 @@
   </environment>
   </environments>
   <mappers>
- <mapper resource='dao.SearchCombinationDAO.xml'/>
+ <mapper resource='dao/SearchCombinationDAO.xml'/>
   </mappers>
 </configuration>

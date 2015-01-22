@@ -12,12 +12,15 @@ public class SearchCombinationService {
 	
 	public SearchCombinationService(){}
 	
-	public void insertSearchCombination(SearchParamCount searchCombObject) {
+	public SearchParamCount insertSearchCombination(SearchParamCount searchCombObject) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			SearchCombinationDAO searchCombDaoObj = sqlSession.getMapper(SearchCombinationDAO.class);
-			searchCombDaoObj.insertSearchParamCount(searchCombObject);
+			Integer id=searchCombDaoObj.insertSearchParamCount(searchCombObject);
+			Long idToSet=Long.parseLong(id.toString());
+			searchCombObject.getSearchParam().setId(idToSet);
 			sqlSession.commit();
+			return searchCombObject;
 		}finally{
 			sqlSession.close();
 		}

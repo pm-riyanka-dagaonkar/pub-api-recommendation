@@ -6,7 +6,7 @@ import parser.SearchParamCount;
 
 public interface SearchCombinationDAO {
 	
-	public void insertSearchParamCount(SearchParamCount spc);
+	public Integer insertSearchParamCount(SearchParamCount spc);
 
 	public SearchParamCount getSearchParamCountById(Long SearchParamCountId);
 

@@ -45,20 +45,20 @@ public class SearchComibnationTest
 	@Test
 	public void testInsertSearchCombination() 
 	{
-		Calendar cal = Calendar.getInstance();
-        Long milliSeconds = cal.getTimeInMillis();
+//		Calendar cal = Calendar.getInstance();
+ //      Long milliSeconds = cal.getTimeInMillis();
 		SearchParamCount insertObject = new SearchParamCount();
 		SearchParam obj=new SearchParam();
 		obj.setCategories("1,2,3");
 		obj.setPlatforms("4,5,6");
 		obj.setPublishers("7,8,9");
 		obj.setTags("christmas");
-		obj.setId(milliSeconds);
+//		obj.setId(milliSeconds);
 		insertObject.setSearchParam(obj);
 		insertObject.setCount(5);
 		
 
-		searchCombinationService.insertSearchCombination(insertObject);
+		insertObject=searchCombinationService.insertSearchCombination(insertObject);
 		
 		SearchParamCount createdRecord =searchCombinationService.getRecordById
 				(insertObject.getSearchParam().getId());
