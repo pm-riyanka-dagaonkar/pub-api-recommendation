@@ -129,13 +129,16 @@ public class SearchParam {
 	
 	@Override
 	public String toString() {
-		String temp="";
+		String temp="-----------";
+		temp+="Id : "+id+"\n";
 		temp+="Name : "+name+"\n";
 		temp+="Desc : "+description+"\n";
 		temp+="Tags : "+tags+"\n";
 		temp+="Cat : "+categories+"\n";
 		temp+="Plat : "+platforms+"\n";
-		temp+="Pub : "+publishers;
+		temp+="Pub : "+publishers+"\n";
+		temp+="Creation time : "+creation_time+"\n";
+		temp+="Modification time : "+modification_time;
 		return temp;
 	}
 
