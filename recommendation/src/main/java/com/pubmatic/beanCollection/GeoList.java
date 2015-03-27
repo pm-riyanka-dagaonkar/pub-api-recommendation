@@ -12,6 +12,14 @@ public class GeoList implements Similar{
 	
 	List<Geo> geos;
 
+	public List<Geo> getGeos() {
+		return geos;
+	}
+
+	public void setGeos(List<Geo> geos) {
+		this.geos = geos;
+	}
+
 	@Override
 	public long getSimilarPercent(Object o) {
 		if(null == o || !(o instanceof GeoList))

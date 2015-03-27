@@ -12,6 +12,14 @@ public class CategoryList implements Similar{
 	
 	private List<Category> categories;
 
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
 	@Override
 	public long getSimilarPercent(Object o) {
 		if(null == o || !(o instanceof CategoryList))

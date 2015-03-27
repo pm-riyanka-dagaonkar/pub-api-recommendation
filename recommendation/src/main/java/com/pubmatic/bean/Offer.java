@@ -17,6 +17,7 @@ import com.pubmatic.interfaces.Similar;
  */
 public class Offer implements Similar{
 
+	private Long id;
 	private Cpm cpm;
 	private CategoryList categories;
 	private AdCodeTypeList adCodeTypes;
@@ -25,6 +26,12 @@ public class Offer implements Similar{
 	private PlatformList platforms;
 	private GeoList geos;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public CategoryList getCategories() {
 		return categories;
 	}

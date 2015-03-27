@@ -12,6 +12,14 @@ public class PlatformList implements Similar{
 
 	List<Platform> platfroms;
 	
+	public List<Platform> getPlatfroms() {
+		return platfroms;
+	}
+
+	public void setPlatfroms(List<Platform> platfroms) {
+		this.platfroms = platfroms;
+	}
+
 	@Override
 	public long getSimilarPercent(Object o) {
 		if(null == o || !(o instanceof PlatformList))

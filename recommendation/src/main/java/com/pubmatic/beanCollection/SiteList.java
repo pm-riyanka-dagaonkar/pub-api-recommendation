@@ -12,6 +12,14 @@ public class SiteList implements Similar{
 
 	List<Site> sites;
 	
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
+	}
+
 	@Override
 	public long getSimilarPercent(Object o) {
 		if(null == o || !(o instanceof SiteList))

@@ -14,6 +14,14 @@ public class AdTagList implements Similar{
 
 	private List<AdTag> adTags;
 	
+	public List<AdTag> getAdTags() {
+		return adTags;
+	}
+
+	public void setAdTags(List<AdTag> adTags) {
+		this.adTags = adTags;
+	}
+
 	@Override
 	public long getSimilarPercent(Object o) {
 		if(null == o || !(o instanceof AdTagList))
