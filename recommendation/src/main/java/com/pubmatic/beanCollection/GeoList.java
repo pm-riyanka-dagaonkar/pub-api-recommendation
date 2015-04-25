@@ -22,14 +22,25 @@ public class GeoList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof GeoList) || geos == null)
+		if(null == o || !(o instanceof GeoList))
 			return 0;
+		GeoList list2 = (GeoList) o;
+		if((list2.geos == null || list2.getGeos().isEmpty()))
+		{
+			if(this.geos == null|| this.geos.isEmpty())
+				return 100;
+			else
+				return 0;
+		} 
+		else
+		{
+			if(this.geos == null || this.geos.isEmpty())
+				return 0;
+		}
 		int similarityPercentage=0;
 		int sizeBase = this.geos.size();
 		int equalCount = 0;
-		GeoList list2 = (GeoList) o;
-		if(list2.getGeos() == null)
-			return 0;
+		
 		Set<Geo> list2Geos = new HashSet<Geo>();
 		list2Geos.addAll((Collection<? extends Geo>) list2.getGeos());
 				
@@ -41,7 +52,7 @@ public class GeoList implements Similar{
 			}
 		}
 		
-		similarityPercentage=((sizeBase-equalCount)/sizeBase)*100;
+		similarityPercentage=(equalCount/sizeBase)*100;
 		return similarityPercentage;
 	}
 

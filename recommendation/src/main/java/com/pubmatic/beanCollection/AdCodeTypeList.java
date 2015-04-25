@@ -23,14 +23,27 @@ public class AdCodeTypeList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof AdCodeTypeList) || adCodeTypes == null)
+		if(null == o || !(o instanceof AdCodeTypeList))
 			return 0;
+		AdCodeTypeList list2 = (AdCodeTypeList) o;
+		
+		if((list2.adCodeTypes == null || list2.adCodeTypes.isEmpty()))
+		{
+			if(this.adCodeTypes == null|| this.adCodeTypes.isEmpty())
+				return 100;
+			else
+				return 0;
+		} 
+		else
+		{
+			if(this.adCodeTypes == null || this.adCodeTypes.isEmpty())
+				return 0;
+		}
+		
 		int similarityPercentage=0;
 		int sizeBase = this.adCodeTypes.size();
 		int equalCount = 0;
-		AdCodeTypeList list2 = (AdCodeTypeList) o;
-		if(list2.getAdCodeTypes() == null)
-			return 0;
+		
 		Set<AdCodeType> list2AdCodeTypes = new HashSet<AdCodeType>();
 		list2AdCodeTypes.addAll((Collection<? extends AdCodeType>) list2.getAdCodeTypes());
 				
@@ -42,7 +55,7 @@ public class AdCodeTypeList implements Similar{
 			}
 		}
 		
-		similarityPercentage=((sizeBase-equalCount)/sizeBase)*100;
+		similarityPercentage=(equalCount/sizeBase)*100;
 		return similarityPercentage;
 	}
 

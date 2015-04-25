@@ -22,17 +22,31 @@ public class CategoryList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof CategoryList) || categories == null)
+		if(null == o || !(o instanceof CategoryList))
 			return 0;
+		
+		CategoryList list2 = (CategoryList) o;
+		if((list2.getCategories() == null || list2.getCategories().isEmpty()))
+		{
+			if(this.categories == null|| this.categories.isEmpty())
+				return 100;
+			else
+				return 0;
+		} 
+		else
+		{
+			if(this.categories == null || this.categories.isEmpty())
+				return 0;
+		}
+		
+		
 		int similarityPercentage=0;
 		int sizeBase = this.categories.size();
 		int equalCount = 0;
-		CategoryList list2 = (CategoryList) o;
-		if(list2.getCategories() == null)
-			return 0;
+
 		Set<Category> list2Cats = new HashSet<Category>();
 		list2Cats.addAll((Collection<? extends Category>) list2.getCategories());
-				
+
 		for(Category category : this.categories)
 		{
 			if(list2Cats.contains(category))
@@ -40,8 +54,8 @@ public class CategoryList implements Similar{
 				equalCount++;
 			}
 		}
-		
-		similarityPercentage=((sizeBase-equalCount)/sizeBase)*100;
+
+		similarityPercentage=(equalCount/sizeBase)*100;
 		return similarityPercentage;
 	}
 	

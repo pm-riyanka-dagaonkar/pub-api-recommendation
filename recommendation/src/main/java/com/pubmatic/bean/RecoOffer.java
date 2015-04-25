@@ -100,16 +100,22 @@ public class RecoOffer implements Similar{
 		
 		if(cpm !=null && offer2.getCpm()!= null)
 			cpmSimilarity=cpm.getSimilarPercent(offer2.getCpm());
+		
 		if(categories !=null && offer2.getCategories()!= null)
 			categorySimilarity=categories.getSimilarPercent(offer2.getCategories());
+		
 		if(adCodeTypes !=null && offer2.getAdCodeTypes()!= null)
 			adCodeTypeSimilarity=adCodeTypes.getSimilarPercent(offer2.getAdCodeTypes());
-		if(sites !=null && offer2.getCpm()!= null)
+		
+		if(sites !=null && offer2.getSites()!= null)
 			sitesSimilarity=sites.getSimilarPercent(offer2.getSites());
+		
 		if(adTags !=null && offer2.getAdTags()!= null)
 			adTagsSimilarity=adTags.getSimilarPercent(offer2.getAdTags());
+		
 		if(platforms !=null && offer2.getPlatforms()!= null)
 			platformsSimilarity=platforms.getSimilarPercent(offer2.getPlatforms());
+		
 		if(geos !=null && offer2.getGeos()!= null)
 			geosSimilarity=geos.getSimilarPercent(offer2.getGeos());
 		
@@ -132,6 +138,7 @@ public class RecoOffer implements Similar{
 		long result= summation / sumOfWeights;
 		similarityPercentage = result;					
 		
+		System.out.println("Offer1 = "+this.getId()+ " Offer2 = "+offer2.getId()+ " Simi = "+similarityPercentage);
 		return similarityPercentage;
 	}
 	

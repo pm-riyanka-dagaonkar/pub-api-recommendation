@@ -22,14 +22,25 @@ public class PlatformList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof PlatformList) || platfroms == null)
+		if(null == o || !(o instanceof PlatformList))
 			return 0;
+		PlatformList list2 = (PlatformList) o;
+		if((list2.platfroms == null || list2.platfroms.isEmpty()))
+		{
+			if(this.platfroms == null|| this.platfroms.isEmpty())
+				return 100;
+			else
+				return 0;
+		} 
+		else
+		{
+			if(this.platfroms == null || this.platfroms.isEmpty())
+				return 0;
+		}
+		
 		int similarityPercentage=0;
 		int sizeBase = this.platfroms.size();
 		int equalCount = 0;
-		PlatformList list2 = (PlatformList) o;
-		if(list2.getPlatfroms() == null)
-			return 0;
 		Set<Platform> list2platforms = new HashSet<Platform>();
 		list2platforms.addAll((Collection<? extends Platform>) list2.getPlatfroms());
 				
@@ -41,7 +52,7 @@ public class PlatformList implements Similar{
 			}
 		}
 		
-		similarityPercentage=((sizeBase-equalCount)/sizeBase)*100;
+		similarityPercentage=(equalCount/sizeBase)*100;
 		return similarityPercentage;
 	}
 

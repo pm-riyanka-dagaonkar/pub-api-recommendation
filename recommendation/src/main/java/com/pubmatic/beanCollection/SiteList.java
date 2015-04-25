@@ -22,14 +22,24 @@ public class SiteList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof SiteList) || sites == null)
+		if(null == o || !(o instanceof SiteList))
 			return 0;
+		SiteList list2 = (SiteList) o;
+		if((list2.sites == null || list2.sites.isEmpty()))
+		{
+			if(this.sites == null|| this.sites.isEmpty())
+				return 100;
+			else
+				return 0;
+		} 
+		else
+		{
+			if(this.sites == null || this.sites.isEmpty())
+				return 0;
+		}
 		int similarityPercentage=0;
 		int sizeBase = this.sites.size();
 		int equalCount = 0;
-		SiteList list2 = (SiteList) o;
-		if(list2.getSites() == null)
-			return 0;
 		Set<Site> list2sites = new HashSet<Site>();
 		list2sites.addAll((Collection<? extends Site>) list2.getSites());
 				
@@ -41,7 +51,7 @@ public class SiteList implements Similar{
 			}
 		}
 		
-		similarityPercentage=((sizeBase-equalCount)/sizeBase)*100;
+		similarityPercentage=(equalCount/sizeBase)*100;
 		return similarityPercentage;
 	}
 
