@@ -6,13 +6,13 @@ import com.pubmatic.interfaces.Similar;
 
 public class Cpm implements Similar{
 	
-	long cpm;
+	Double cpm;
 
-	public long getCpm() {
+	public Double getCpm() {
 		return cpm;
 	}
 
-	public void setCpm(long cpm) {
+	public void setCpm(Double cpm) {
 		this.cpm = cpm;
 	}
 
@@ -22,7 +22,7 @@ public class Cpm implements Similar{
 			return 0;
 		Cpm obj2=(Cpm) o;
 		long similarityPercentage=0;
-		long diff=Math.abs(this.cpm-obj2.cpm);
+		Double diff=Math.abs(this.cpm-obj2.cpm);
 		if(diff <= Constants.CPM_THRESHOLD)
 		{
 			similarityPercentage=100;
@@ -31,11 +31,12 @@ public class Cpm implements Similar{
 		return similarityPercentage;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (cpm ^ (cpm >>> 32));
+		result = prime * result + ((cpm == null) ? 0 : cpm.hashCode());
 		return result;
 	}
 
@@ -48,7 +49,10 @@ public class Cpm implements Similar{
 		if (getClass() != obj.getClass())
 			return false;
 		Cpm other = (Cpm) obj;
-		if (cpm != other.cpm)
+		if (cpm == null) {
+			if (other.cpm != null)
+				return false;
+		} else if (!cpm.equals(other.cpm))
 			return false;
 		return true;
 	}

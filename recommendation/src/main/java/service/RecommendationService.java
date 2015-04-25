@@ -9,10 +9,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.pubmatic.bean.Offer;
+import org.springframework.stereotype.Service;
+
+import com.pubmatic.bean.RecoOffer;
 import com.pubmatic.bean.SimilarOffer;
 import com.pubmatic.bean.User;
 
+@Service
 public class RecommendationService {
 	
 	/**
@@ -24,11 +27,14 @@ public class RecommendationService {
 	{
 		//API call to get relevant offer objects from graph DB for the input user
 		//size should not exceed 10
-		Set<Offer> relevantOffers = null;
+		Set<RecoOffer> relevantOffers = null;
+		{
+//			offerService.search(arg0, arg1);
+		}
 		
 		//API call to get offers data set from graph DB for the input user
 		//size should not exceed 100
-		Set<Offer> firstLevelOffers = null;
+		Set<RecoOffer> firstLevelOffers = null;
 		
 		 List<SimilarOffer> result=getSimilarOffers(relevantOffers, firstLevelOffers);
 		
@@ -36,8 +42,8 @@ public class RecommendationService {
 		
 	}
 	
-	public List<SimilarOffer> getSimilarOffers(Set<Offer> relevantOffers,
-			Set<Offer> firstLevelOffers)
+	public List<SimilarOffer> getSimilarOffers(Set<RecoOffer> relevantOffers,
+			Set<RecoOffer> firstLevelOffers)
 	{
 		if(relevantOffers.size() ==0 || firstLevelOffers.size() ==0)
 		{
@@ -47,12 +53,17 @@ public class RecommendationService {
 			//show the top selling offers
 			//API call to get the highest transacted upon offers
 		}
-		
-		Map<Offer,Long> similarOffers= new HashMap<Offer, Long>();
-		for(Offer relevantOffer : relevantOffers)
+		if(relevantOffers.size() == 0)
+		{
+			System.out.println("User is new with no history");
+			//logic to get offers from similar users.
+			//populate relevantOffers from the user.
+		}
+		Map<RecoOffer,Long> similarOffers= new HashMap<RecoOffer, Long>();
+		for(RecoOffer relevantOffer : relevantOffers)
 		{
 			long similarityPer;
-			for(Offer existing : firstLevelOffers)
+			for(RecoOffer existing : firstLevelOffers)
 			{
 				if(!relevantOffer.getId().equals(existing.getId()))
 				{
@@ -61,9 +72,9 @@ public class RecommendationService {
 				}
 			}
 		}
-		List<Entry<Offer,Long>> recommendedList=sortmap(similarOffers);
+		List<Entry<RecoOffer,Long>> recommendedList=sortmap(similarOffers);
 		List<SimilarOffer> result = new ArrayList<SimilarOffer>();
-		for(Entry<Offer,Long> e: recommendedList)
+		for(Entry<RecoOffer,Long> e: recommendedList)
 		{
 			SimilarOffer s=new SimilarOffer();
 			s.setOffer(e.getKey());
@@ -73,30 +84,33 @@ public class RecommendationService {
 		return result;
 	}
 	
-	private List<Entry<Offer,Long>> sortmap(Map<Offer,Long> input)
+	private List<Entry<RecoOffer,Long>> sortmap(Map<RecoOffer,Long> input)
 	{		
-		Set<Entry<Offer,Long>> set = input.entrySet();
-        List<Entry<Offer,Long>> list = new ArrayList<Entry<Offer,Long>>(set);
-        Collections.sort( list, new Comparator<Map.Entry<Offer,Long>>()
+		Set<Entry<RecoOffer,Long>> set = input.entrySet();
+        List<Entry<RecoOffer,Long>> list = new ArrayList<Entry<RecoOffer,Long>>(set);
+        Collections.sort( list, new Comparator<Map.Entry<RecoOffer,Long>>()
         {
 			@Override
-			public int compare(Entry<Offer, Long> arg0, Entry<Offer, Long> arg1) {
+			public int compare(Entry<RecoOffer, Long> arg0, Entry<RecoOffer, Long> arg1) {
+				//sorting in descending order
 				return (arg1.getValue()).compareTo( arg0.getValue() );
 			}
         } );
         System.out.println("sorted");
-        for(Map.Entry<Offer,Long> entry:list){
+        for(Map.Entry<RecoOffer,Long> entry:list){
             System.out.println(entry.getKey()+" ==== "+entry.getValue());
         }		
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		RecommendationService service = new RecommendationService();
-		
+	public String getMessage()
+	{
+		return "in the get call";
 	}
 	
+	public void createSimilarityMatrix(Set<RecoOffer> input)
+	{
 		
-	      
+	}
 	  
 }

@@ -22,14 +22,16 @@ public class PlatformList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof PlatformList))
+		if(null == o || !(o instanceof PlatformList) || platfroms == null)
 			return 0;
 		int similarityPercentage=0;
 		int sizeBase = this.platfroms.size();
 		int equalCount = 0;
 		PlatformList list2 = (PlatformList) o;
+		if(list2.getPlatfroms() == null)
+			return 0;
 		Set<Platform> list2platforms = new HashSet<Platform>();
-		list2platforms.addAll((Collection<? extends Platform>) list2);
+		list2platforms.addAll((Collection<? extends Platform>) list2.getPlatfroms());
 				
 		for(Platform platform : this.platfroms)
 		{

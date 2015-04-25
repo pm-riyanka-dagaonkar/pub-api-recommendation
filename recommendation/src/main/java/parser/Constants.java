@@ -24,13 +24,13 @@ public class Constants {
 	public static long	GEOS_THRESHOLD	;
 	public static long	OFFER_THRESHOLD	;
 	
-	public static long	WEIGHT_CPM	;
-	public static long	WEIGHT_CATEGORIES	;
-	public static long	WEIGHT_SITES	;
-	public static long	WEIGHT_ADTAGS	;
+	public static long	WEIGHT_CPM	= 1l;
+	public static long	WEIGHT_CATEGORIES	= 1l;
+	public static long	WEIGHT_SITES	= 1l;
+	public static long	WEIGHT_ADTAGS	= 1l;
 	public static long	WEIGHT_GEOS	;
-	public static long	WEIGHT_ADCODETYPES	;
-	public static long	WEIGHT_PLATFORMS	;
+	public static long	WEIGHT_ADCODETYPES	= 1l;
+	public static long	WEIGHT_PLATFORMS	= 1l;
 
 
 }

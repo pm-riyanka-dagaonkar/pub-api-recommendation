@@ -22,14 +22,16 @@ public class GeoList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof GeoList))
+		if(null == o || !(o instanceof GeoList) || geos == null)
 			return 0;
 		int similarityPercentage=0;
 		int sizeBase = this.geos.size();
 		int equalCount = 0;
 		GeoList list2 = (GeoList) o;
+		if(list2.getGeos() == null)
+			return 0;
 		Set<Geo> list2Geos = new HashSet<Geo>();
-		list2Geos.addAll((Collection<? extends Geo>) list2);
+		list2Geos.addAll((Collection<? extends Geo>) list2.getGeos());
 				
 		for(Geo geo : this.geos)
 		{

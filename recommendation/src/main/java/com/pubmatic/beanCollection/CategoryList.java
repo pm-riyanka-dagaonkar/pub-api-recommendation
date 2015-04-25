@@ -22,14 +22,16 @@ public class CategoryList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof CategoryList))
+		if(null == o || !(o instanceof CategoryList) || categories == null)
 			return 0;
 		int similarityPercentage=0;
 		int sizeBase = this.categories.size();
 		int equalCount = 0;
 		CategoryList list2 = (CategoryList) o;
+		if(list2.getCategories() == null)
+			return 0;
 		Set<Category> list2Cats = new HashSet<Category>();
-		list2Cats.addAll((Collection<? extends Category>) list2);
+		list2Cats.addAll((Collection<? extends Category>) list2.getCategories());
 				
 		for(Category category : this.categories)
 		{

@@ -23,14 +23,16 @@ public class AdCodeTypeList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof AdCodeTypeList))
+		if(null == o || !(o instanceof AdCodeTypeList) || adCodeTypes == null)
 			return 0;
 		int similarityPercentage=0;
 		int sizeBase = this.adCodeTypes.size();
 		int equalCount = 0;
 		AdCodeTypeList list2 = (AdCodeTypeList) o;
+		if(list2.getAdCodeTypes() == null)
+			return 0;
 		Set<AdCodeType> list2AdCodeTypes = new HashSet<AdCodeType>();
-		list2AdCodeTypes.addAll((Collection<? extends AdCodeType>) list2);
+		list2AdCodeTypes.addAll((Collection<? extends AdCodeType>) list2.getAdCodeTypes());
 				
 		for(AdCodeType adCodeType : this.adCodeTypes)
 		{

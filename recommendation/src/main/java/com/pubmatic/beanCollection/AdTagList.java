@@ -24,14 +24,16 @@ public class AdTagList implements Similar{
 
 	@Override
 	public long getSimilarPercent(Object o) {
-		if(null == o || !(o instanceof AdTagList))
+		if(null == o || !(o instanceof AdTagList) || adTags == null)
 			return 0;
 		int similarityPercentage=0;
 		int sizeBase = this.adTags.size();
 		int equalCount = 0;
 		AdTagList list2 = (AdTagList) o;
+		if(list2.getAdTags() == null)
+			return 0;
 		Set<AdTag> list2AdTags = new HashSet<AdTag>();
-		list2AdTags.addAll((Collection<? extends AdTag>) list2);
+		list2AdTags.addAll((Collection<? extends AdTag>) list2.getAdTags());
 				
 		for(AdTag adTag : this.adTags)
 		{

@@ -16,8 +16,7 @@ import org.junit.Test;
 import service.RecommendationService;
 
 import com.pubmatic.bean.Cpm;
-import com.pubmatic.bean.Offer;
-import com.pubmatic.bean.SimilarOffer;
+import com.pubmatic.bean.RecoOffer;
 
 public class RecommendationServiceTest {
 	
@@ -29,31 +28,33 @@ public class RecommendationServiceTest {
 	public static void setup(){
 		recommendsationService = new RecommendationService();
 	}
+	
 	@Test
 	public void test() {
-		Set<Offer> relevantOffers = new HashSet<Offer>();
-		Set<Offer> firstLevelOffers = new HashSet<Offer>();
+		Set<RecoOffer> relevantOffers = new HashSet<RecoOffer>();
+		Set<RecoOffer> firstLevelOffers = new HashSet<RecoOffer>();
 		
-		List<SimilarOffer>result=recommendsationService.getSimilarOffers(relevantOffers, firstLevelOffers);
+	//	List<SimilarOffer>result=recommendsationService.getSimilarOffers(relevantOffers, firstLevelOffers);
+	//	recommendsationService.createOfferSimilarityMatrix();
 	}
 	
-	private List<Set<Offer>> generateDataFromFile(){
+	private List<Set<RecoOffer>> generateDataFromFile(){
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(new File(FILEPATH)));
 			String data;
-			Set<Offer> relevantOffers = new HashSet<Offer>();
-			Set<Offer> firstLevelOffers = new HashSet<Offer>();
-			List<Set<Offer>> result=new ArrayList<Set<Offer>>();
-			Offer o;
+			Set<RecoOffer> relevantOffers = new HashSet<RecoOffer>();
+			Set<RecoOffer> firstLevelOffers = new HashSet<RecoOffer>();
+			List<Set<RecoOffer>> result=new ArrayList<Set<RecoOffer>>();
+			RecoOffer o;
 			
 			while((data=br.readLine())!=null)
 			{
 				String[] columns = data.split("\t");
-				o = new Offer();
+				o = new RecoOffer();
 				o.setId(Long.parseLong(columns[1]));
 				
 				Cpm cpm = new Cpm();
-				cpm.setCpm(Long.parseLong(columns[2]));
+				//cpm.setCpm(.parseLong(columns[2]));
 				
 				
 				
