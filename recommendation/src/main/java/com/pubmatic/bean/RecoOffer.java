@@ -138,7 +138,7 @@ public class RecoOffer implements Similar{
 		long result= summation / sumOfWeights;
 		similarityPercentage = result;					
 		
-		System.out.println("Offer1 = "+this.getId()+ " Offer2 = "+offer2.getId()+ " Simi = "+similarityPercentage);
+//		System.out.println("Offer1 = "+this.getId()+ " Offer2 = "+offer2.getId()+ " Simi = "+similarityPercentage);
 		return similarityPercentage;
 	}
 	
